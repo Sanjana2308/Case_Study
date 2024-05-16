@@ -119,10 +119,36 @@ Status type:
                 self.crime_service.get_incidents_in_date_range(incident_start_date, incident_end_date)
 
             elif choice == 4:
-                continue
+                print("""
+Incident type: 
+1. Robbery
+2. Homicide
+3. Theft""")
+                choice = int(input("Enter incident type: "))
+
+                while True:
+                    if choice == 1:
+                        incident_type = "Robbery"
+                        break
+                    elif choice == 2:
+                        incident_type = "Homicide"
+                        break
+                    elif choice == 3:
+                        incident_type = "Theft"
+                        break
+                    else:
+                        break
+
+                self.crime_service.search_incidents(incident_type)
 
             elif choice == 5:
-                continue
+                incident_id = int(input("Enter incident id: "))
+                reporting_officer = input("Enter reporting officer: ")
+                report_date = input("Enter date in the format YYYY-MM-DD: ")
+                report_details = input("Enter report details: ")
+                status = input("Enter status: ")
+                new_report = Reports(incident_id, reporting_officer, report_date, report_details, status)
+                self.crime_service.generate_incident_report(new_report)
 
             elif choice == 6:
                 continue

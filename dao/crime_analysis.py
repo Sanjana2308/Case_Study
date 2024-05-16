@@ -41,12 +41,52 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
                 ? AND ?
                 """,
                 (start_date, end_date))
+            
             incidents = self.cursor.fetchall()
             for incident in incidents:
                 print(incident)
 
         except Exception as e:
             print(e)
+
+    def search_incidents(self, incident_type):
+        try:
+            self.cursor.execute(
+                """
+                select * from Incidents where incidentType IN (?)
+                """,
+                (incident_type)
+                )
+            incidents = self.cursor.fetchall()
+            for incident in incidents:
+                print(incident)
+        except Exception as e:
+            print(e)
+
+    def generate_incident_report(self, report):
+        try:
+            self.cursor.execute(
+                """
+                INSERT INTO Reports (IncidentID, ReportingOfficer, ReportDate, ReportDetails, Status)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (report.incident_id, report.reporting_officer, report.report_date, report.report_details, report.status)
+                )
+            print("Report Generated")
+            self.cursor.execute("""
+                                select * from Reports WHERE IncidentID = ?
+                                """,
+                                (report.incident_id)
+                                )
+            reports = self.cursor.fetchall()
+            for report_ in reports:
+                print(report_)
+
+        except Exception as e:
+            print(e)
+        
+    
+    
 
 
         
