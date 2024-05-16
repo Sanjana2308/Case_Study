@@ -4,7 +4,7 @@ from .victims import Victims
 
 from .suspects import Suspects
 
-from .lawenforcementagency import LawEnforcementAgency
+from .law_enforcement_agency import LawEnforcementAgency
 
 from .officers import Officers
 

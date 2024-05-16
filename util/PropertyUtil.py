@@ -1,7 +1,7 @@
 class PropertyUtil:
     @staticmethod
     def get_property_string():
-        server_name = "DESKTOP-NG62K12\SQLEXPRESS"
+        server_name = "DESKTOP-NG62K12\\SQLEXPRESS"
         database_name = "Project1"
 
         conn_str = (

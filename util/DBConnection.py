@@ -8,6 +8,7 @@ class DBConnection:
         conn_str = PropertyUtil.get_property_string()
         self.connection = pyodbc.connect(conn_str)
         self.cursor = self.connection.cursor()
+        
 
     def close(self):
         self.cursor.close()

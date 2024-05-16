@@ -3,7 +3,7 @@ from util.DBConnection import DBConnection
 class CrimeAnalysisService(DBConnection):
     def read_victims(self):
         try:
-            self.cursor.execute("select * from victims")
+            self.cursor.execute("select * from Victims")
             victims = self.cursor.fetchall()
             for victim in victims:
                 print(victim)
