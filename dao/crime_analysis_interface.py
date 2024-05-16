@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class IcrimeAnalysisService(ABC):
     @abstractmethod
-    def create_incident(self):
+    def create_incident(self, incident):
         pass
 
     @abstractmethod
