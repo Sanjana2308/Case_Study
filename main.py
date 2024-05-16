@@ -83,16 +83,40 @@ Status type:
                 else:
                     print("Could not create Incident")
 
+            elif choice == 2:
+                incident_id = int(input("Enter Incident ID: "))
+                print("""
+Status type: 
+1. Open
+2. Closed
+3. Under Investigation""")
+                choice = int(input("Enter status of incident: "))
 
-
+                while True:
+                    if choice == 1:
+                        status = "Open"
+                        break
+                    elif choice == 2:
+                        status = "Closed"
+                        break
+                    elif choice == 3:
+                        status = "Under Investigation"
+                        break
+                    else:
+                        break
+                updated = self.crime_service.update_incident_status(incident_id, status)
+                if updated:
+                    print("Incident Status Updated successfully")
+                else:
+                    print("Could not update Status")
 
                 
-
-            elif choice == 2:
-                continue
-
             elif choice == 3:
-                continue
+                incident_start_date = input("Enter start date in the format YYYY-MM-DD: ")
+                
+                incident_end_date = input("Enter end date in the format YYYY-MM-DD: ")
+                
+                self.crime_service.get_incidents_in_date_range(incident_start_date, incident_end_date)
 
             elif choice == 4:
                 continue

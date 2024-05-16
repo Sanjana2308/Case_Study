@@ -17,5 +17,36 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
         except Exception as e:
             print(e)
 
-    def update_incident_status(self):
-        pass
+    def update_incident_status(self, incidentId, status):
+        try:
+            self.cursor.execute(
+                """
+                Update Incidents
+                Set Status = ?
+                where incidentId = ?
+                """,
+                (status, incidentId))
+            self.connection.commit()
+            return True
+        except Exception as e:
+            print(e)
+
+    def get_incidents_in_date_range(self, start_date, end_date):
+        try:
+            self.cursor.execute(
+                """
+                select * 
+                from Incidents
+                where IncidentDate BETWEEN
+                ? AND ?
+                """,
+                (start_date, end_date))
+            incidents = self.cursor.fetchall()
+            for incident in incidents:
+                print(incident)
+
+        except Exception as e:
+            print(e)
+
+
+        
