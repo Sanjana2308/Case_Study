@@ -1,8 +1,8 @@
 from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
-from dao.crime_analysis import CrimeAnalysisService
+from dao.crime_analysis import CrimeAnalysisServiceImpl
 
 class MainMenu:
-    crime_service = CrimeAnalysisService()
+    crime_service = CrimeAnalysisServiceImpl()
 
     def main_menu(self):
         while True:
@@ -53,6 +53,6 @@ class MainMenu:
             else:
                 print("Please enter correct choice from menu!")
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     main = MainMenu()
     main.main_menu()
