@@ -111,17 +111,28 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
                 print(case)
         except Exception as e:
             print(e)
+    
+    def update_case_details(self, caseId, description):
+        try:
+            self.cursor.execute("""
+                                Update Cases 
+                                Set CaseDescription = ?
+                                where CaseID = ?
+                                """,
+                                (description, caseId)
+                                )
+            self.connection.commit()
+            return True
+        except Exception as e:
+            print(e)  
+
             
-
-
-
-    
-        
-            
-
-        
-    
-    
-
-
-        
+    def get_all_cases(self):
+        try:
+            self.cursor.execute("select * from Cases")
+            cases = self.cursor.fetchall()
+            for case in cases:
+                print(case)
+        except Exception as e:
+            print(e)
+          

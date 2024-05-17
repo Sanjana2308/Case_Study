@@ -168,10 +168,17 @@ Incident type:
                 self.crime_service.get_case_details(case_id)
 
             elif choice == 8:
-                continue
+                case_id = int(input("Enter case ID to be updated: "))
+                description = input("Enter description of case: ")
+                updated = self.crime_service.update_case_details(case_id, description)
+                if updated:
+                    print("Case details updated")
+                else:
+                    print("Could not update case details")
+
 
             elif choice == 9:
-                continue
+                self.crime_service.get_all_cases()
 
             elif choice == 10:
                 break

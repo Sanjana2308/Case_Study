@@ -30,7 +30,7 @@ class IcrimeAnalysisService(ABC):
         pass
 
     @abstractmethod
-    def update_case_details(self):
+    def update_case_details(self, caseId, description):
         pass
 
     @abstractmethod
