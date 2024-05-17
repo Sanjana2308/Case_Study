@@ -70,3 +70,10 @@ CREATE TABLE Reports(
 	FOREIGN KEY (IncidentID) References Incidents (IncidentID),
 	FOREIGN KEY (ReportingOfficer) References Officers (OfficerID)
 );
+
+CREATE TABLE Cases(
+	CaseID INT PRIMARY KEY IDENTITY(1, 1),
+	CaseDescription VARCHAR(500),
+	IncidentID INT,
+	FOREIGN KEY (IncidentId) References Incidents(IncidentId)
+);

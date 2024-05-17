@@ -1,4 +1,4 @@
-from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
+from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims, Cases
 
 from dao.crime_analysis import CrimeAnalysisServiceImpl
 
@@ -150,11 +150,22 @@ Incident type:
                 new_report = Reports(incident_id, reporting_officer, report_date, report_details, status)
                 self.crime_service.generate_incident_report(new_report)
 
+
             elif choice == 6:
-                continue
+                description = input("Enter case description: ")
+                incident_id = int(input("Enter incident id: "))
+
+                new_case = Cases(description, incident_id)
+                created = self.crime_service.create_case(new_case)
+                if created:
+                    print("New Case Created")
+                else:
+                    print("Couldn't create case")
+
 
             elif choice == 7:
-                continue
+                case_id = int(input("Enter caseId: "))
+                self.crime_service.get_case_details(case_id)
 
             elif choice == 8:
                 continue

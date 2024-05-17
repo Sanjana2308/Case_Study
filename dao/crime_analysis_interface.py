@@ -2,31 +2,31 @@ from abc import ABC, abstractmethod
 
 class IcrimeAnalysisService(ABC):
     @abstractmethod
-    def create_incident(self, incident):
+    def create_incident(self, incidents):
         pass
 
     @abstractmethod
-    def update_incident_status(self):
+    def update_incident_status(self, incidentId, status):
         pass
 
     @abstractmethod
-    def get_incidents_in_date_range(self):
+    def get_incidents_in_date_range(self, start_date, end_date):
         pass
 
     @abstractmethod
-    def search_incidents(self):
+    def search_incidents(self, incident_type):
         pass
 
     @abstractmethod
-    def generate_incident_report(self):
+    def generate_incident_report(self, report):
         pass
 
     @abstractmethod
-    def create_case(self):
+    def create_case(self, cases):
         pass
 
     @abstractmethod
-    def get_case_details(self):
+    def get_case_details(self, caseId):
         pass
 
     @abstractmethod

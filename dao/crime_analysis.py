@@ -84,6 +84,41 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
 
         except Exception as e:
             print(e)
+
+    def create_case(self, cases):
+        try:
+            self.cursor.execute("""
+                                INSERT INTO Cases (CaseDescription, IncidentID)
+                                VALUES
+                                (?, ?)
+                                """,
+                                (cases.description, cases.incident_id)
+                                )
+            self.connection.commit()
+            return True
+        except Exception as e:
+            print(e)
+
+    def get_case_details(self, caseId):
+        try:
+            self.cursor.execute("""
+                                select * from Cases where CaseID = ?
+                                """,
+                                (caseId)
+                                )
+            cases = self.cursor.fetchall()
+            for case in cases:
+                print(case)
+        except Exception as e:
+            print(e)
+            
+
+
+
+    
+        
+            
+
         
     
     
