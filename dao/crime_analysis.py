@@ -1,10 +1,12 @@
 from util.DBConnection import DBConnection
 
-# from .crime_analysis_interface import IcrimeAnalysisService
+from .crime_analysis_interface import IcrimeAnalysisService
 
 from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
 
-class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
+from myexception.exception import IncidentNumberNotFoundException
+
+class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService): 
 
     def create_incident(self, incidents):
         
@@ -58,10 +60,13 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
                 (incident_type)
                 )
             incidents = self.cursor.fetchall()
-            for incident in incidents:
-                print(incident)
+
+            if len(incidents) == 0:
+                raise IncidentNumberNotFoundException
+            else:
+                print(incidents)
         except Exception as e:
-            print(e)
+            print("Oops error happened: ", e)
 
     def generate_incident_report(self, report):
         try:
@@ -126,7 +131,7 @@ class CrimeAnalysisServiceImpl(DBConnection): #IcrimeAnalysisService
         except Exception as e:
             print(e)  
 
-            
+
     def get_all_cases(self):
         try:
             self.cursor.execute("select * from Cases")
