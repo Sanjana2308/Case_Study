@@ -130,7 +130,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print(e)  
 
-
+    
     def get_all_cases(self):
         try:
             self.cursor.execute("select * from Cases")

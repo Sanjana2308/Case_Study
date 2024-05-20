@@ -7,41 +7,41 @@ class Officers:
         self.contact_information = contact_information
         self.agency_id = agency_id
 
-     # Getter methods
-    def get_firstname(self):
-        return self.firstname
+    #  # Getter methods
+    # def get_firstname(self):
+    #     return self.firstname
 
-    def get_lastname(self):
-        return self.lastname
+    # def get_lastname(self):
+    #     return self.lastname
 
-    def get_badge_number(self):
-        return self.badge_number
+    # def get_badge_number(self):
+    #     return self.badge_number
 
-    def get_rank(self):
-        return self.rank
+    # def get_rank(self):
+    #     return self.rank
 
-    def get_contact_information(self):
-        return self.contact_information
+    # def get_contact_information(self):
+    #     return self.contact_information
 
-    def get_agency_id(self):
-        return self.agency_id
+    # def get_agency_id(self):
+    #     return self.agency_id
 
-    # Setter methods
-    def set_firstname(self, firstname):
-        self.firstname = firstname
+    # # Setter methods
+    # def set_firstname(self, firstname):
+    #     self.firstname = firstname
 
-    def set_lastname(self, lastname):
-        self.lastname = lastname
+    # def set_lastname(self, lastname):
+    #     self.lastname = lastname
 
-    def set_badge_number(self, badge_number):
-        self.badge_number = badge_number
+    # def set_badge_number(self, badge_number):
+    #     self.badge_number = badge_number
 
-    def set_rank(self, rank):
-        self.rank = rank
+    # def set_rank(self, rank):
+    #     self.rank = rank
 
-    def set_contact_information(self, contact_information):
-        self.contact_information = contact_information
+    # def set_contact_information(self, contact_information):
+    #     self.contact_information = contact_information
 
-    def set_agency_id(self, agency_id: int):
-        self.agency_id = agency_id
+    # def set_agency_id(self, agency_id: int):
+    #     self.agency_id = agency_id
 
