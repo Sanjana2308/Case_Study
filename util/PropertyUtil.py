@@ -2,7 +2,7 @@ class PropertyUtil:
     @staticmethod
     def get_property_string():
         server_name = "DESKTOP-NG62K12\\SQLEXPRESS"
-        database_name = "Project1"
+        database_name = "Project2"
 
         conn_str = (
             f"Driver={{SQL Server}};"

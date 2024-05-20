@@ -79,9 +79,8 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 )
             print("Report Generated")
             self.cursor.execute("""
-                                select * from Reports WHERE IncidentID = ?
-                                """,
-                                (report.incident_id)
+                                SELECT TOP 1 * FROM Reports ORDER BY ReportID DESC;
+                                """
                                 )
             reports = self.cursor.fetchall()
             for report_ in reports:
