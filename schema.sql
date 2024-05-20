@@ -1,5 +1,5 @@
-CREATE DATABASE Project1;
-USE Project1;
+CREATE DATABASE Project2;
+USE Project2;
 
 CREATE TABLE Victims(
 	VictimID INT PRIMARY KEY IDENTITY(1, 1),

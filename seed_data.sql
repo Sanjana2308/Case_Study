@@ -92,6 +92,13 @@ VALUES
 (9, 9, '2024-05-11', 'Vandalism incident report', 'Draft'),
 (10, 10, '2024-05-16', 'Drug trafficking bust report', 'Finalized');
 
+INSERT INTO Cases (CaseDescription, IncidentID) VALUES
+('Burglary at the downtown apartment', 1),
+('Vandalism in the central park', 2),
+('Assault in the subway station', 3),
+('Robbery at the convenience store', 4),
+('Hit and run on the highway', 5);
+
 select * from Incidents;
 select * from Victims;
 select * from Suspects;
@@ -99,6 +106,7 @@ select * from LawEnforcementAgency;
 select * from Officers;
 select * from Evidence;
 select * from Reports;
+select * from Cases;
 
 
 
