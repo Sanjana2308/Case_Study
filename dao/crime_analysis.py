@@ -15,9 +15,16 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                                     (incidents.incident_type, incidents.incident_date, incidents.location_latitude, incidents.location_longitude, incidents.description, incidents.status, incidents.victim_id, incidents.suspect_id))
             self.connection.commit()
-            return True
+            self.cursor.execute("""
+                                select TOP 1 IncidentID
+                                from Incidents
+                                order by IncidentID DESC
+                                """)
+            incident_id = self.cursor.fetchone()
+            return incident_id
         except Exception as e:
             print(e)
+            return None
 
     def update_incident_status(self, incidentId, status):
         try:
@@ -32,6 +39,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             return True
         except Exception as e:
             print(e)
+            return None
 
     def get_incidents_in_date_range(self, start_date, end_date):
         try:

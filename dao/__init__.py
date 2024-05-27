@@ -1,4 +1,4 @@
-# Barelling
+# Barrelling
 
 from .crime_analysis_interface import IcrimeAnalysisService
 

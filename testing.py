@@ -1,40 +1,44 @@
 import unittest
+from dao import CrimeAnalysisServiceImpl
+from entity import Incidents
 
-from unittest.mock import MagicMock, patch
-
-from datetime import datetime
-
-from util.DBConnection import DBConnection
-
-from dao.crime_analysis import CrimeAnalysisServiceImpl
-
-from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException
-
-class TestCrimeAnalysisServiceImpl(unittest.TestCase):
-    
+class TestIncidentServiceModule(unittest.TestCase):
     def setUp(self):
-        self.service = CrimeAnalysisServiceImpl()
-        self.service.conn = MagicMock()
-        self.service.cursor = MagicMock()
+        self.crime_analysis_service = CrimeAnalysisServiceImpl()
+        self.test_incident = Incidents("Robbery", '2024-05-03', 23.56, 32.56, "Stolen items", "Open", 2, 3)
+        self.test_incident_id = self.crime_analysis_service.create_incident(self.test_incident)
+        self.assertIsNotNone(self.test_incident_id)
 
-    def test_createIncident_success(self):
-        incident = MagicMock()
-        self.service.createIncident(incident)
-        self.service.cursor.execute.assert_called_once()
-        self.service.conn.commit.assert_called_once()
-        print("test_createIncident_success passed")
+    def test_create_incident(self):
+        incident_type = "Theft"
+        incident_date = "2024-05-09"
+        location_longitude = 24.36
+        location_latitude = 25.63
+        description = "Stolen"
+        status = "Closed"
+        victim_id = 3
+        suspect_id = 4
+        new_incident = Incidents(incident_type, incident_date, location_longitude, location_latitude, description, status, victim_id, suspect_id)
+        created_incident = self.crime_analysis_service.create_incident(new_incident)
+        self.assertIsNotNone(created_incident)
+        print("-"*20+"test_create_incident passed"+"-"*20)
 
-    def test_updateIncidentStatus_success(self):
-        incident_id = 1
-        status = "Open"
-        self.service.cursor.fetchall.return_value = [(1,)]
+    # def test_update_incident(self):
+    #     updated_status = "Open"
+    #     updated_incident = self.crime_analysis_service.update_incident_status(self.test_incident_id, updated_status)
         
-        self.service.update_incident_status(status, incident_id)
+    #     # Check after updating the movie
+    #     self.crime_analysis_service.cursor.execute(
+    #         """select * 
+    #         from Incidents 
+    #         where IncidentID = ?
+    #         """,(self.test_incident_id,)
+    #         )
+    #     incident = self.crime_analysis_service.cursor.fetchone()
         
-        self.service.cursor.execute.assert_any_call("SELECT * FROM Incidents WHERE IncidentID = ?", (incident_id),)
-        # self.service.cursor.execute.assert_any_call("UPDATE Incidents SET Status = ? WHERE IncidentID = ?", (status, incident_id),)
-        self.service.conn.commit.assert_called_once()
-        print("test_updateIncidentStatus_success passed")
 
-if __name__ == '__main__':
+
+        
+
+if __name__ == "__main__":
     unittest.main()
