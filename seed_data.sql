@@ -39,18 +39,18 @@ INSERT INTO Incidents (IncidentType, IncidentDate, Location_Latitude, Location_L
 ('Theft', '2024-06-12', 41.878100, -87.629800, 'Theft of a vehicle', 'Open', 10, 10);
 
 -- Dummy data for LawEnforcementAgency table
-INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, Officer)
+INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, OfficerID)
 VALUES
-('City Police Department', 'Citywide', '123 Police Ave, Cityville, USA', 'Officer Smith'),
-('County Sheriff Office', 'Countywide', '456 Sheriff St, Countytown, USA', 'Sheriff Johnson'),
-('State Bureau of Investigation', 'Statewide', '789 SBI Blvd, Capital City, USA', 'Agent Anderson'),
-('Federal Bureau of Investigation', 'National', '321 FBI Lane, Washington DC, USA', 'Agent Brown'),
-('Drug Enforcement Administration', 'National', '654 DEA Road, Washington DC, USA', 'Agent Davis'),
-('Immigration and Customs Enforcement', 'National', '987 ICE Drive, Washington DC, USA', 'Agent Miller'),
-('Transportation Security Administration', 'National', '741 TSA Parkway, Washington DC, USA', 'Agent Wilson'),
-('Secret Service', 'National', '852 Secret Way, Washington DC, USA', 'Agent Taylor'),
-('Bureau of Firearms and Explosives', 'National', '369 ATF Street, Washington DC, USA', 'Agent Martinez'),
-('United States Marshals Service', 'National', '159 Marshals Lane, Washington DC, USA', 'Marshal Garcia');
+('City Police Department', 'Citywide', '123 Police Ave, Cityville, USA', 1),
+('County Sheriff Office', 'Countywide', '456 Sheriff St, Countytown, USA', 2),
+('State Bureau of Investigation', 'Statewide', '789 SBI Blvd, Capital City, USA', 3),
+('Federal Bureau of Investigation', 'National', '321 FBI Lane, Washington DC, USA', 4),
+('Drug Enforcement Administration', 'National', '654 DEA Road, Washington DC, USA', 5),
+('Immigration and Customs Enforcement', 'National', '987 ICE Drive, Washington DC, USA', 6),
+('Transportation Security Administration', 'National', '741 TSA Parkway, Washington DC, USA', 7),
+('Secret Service', 'National', '852 Secret Way, Washington DC, USA', 8),
+('Bureau of Firearms and Explosives', 'National', '369 ATF Street, Washington DC, USA', 9),
+('United States Marshals Service', 'National', '159 Marshals Lane, Washington DC, USA', 10);
 
 INSERT INTO Officers (FirstName, LastName, BadgeNumber, Rank, ContactInformation, AgencyID)
 VALUES

@@ -38,7 +38,8 @@ CREATE TABLE LawEnforcementAgency(
 	AgencyName VARCHAR(255) NOT NULL,
 	Jurisdiction VARCHAR(255) NOT NULL,
 	ContactInformation VARCHAR(200),
-	Officer VARCHAR(30)
+	OfficerID INT
+	FOREIGN KEY (OfficerID) References Officers(OfficerID) 
 );
 
 CREATE TABLE Officers(

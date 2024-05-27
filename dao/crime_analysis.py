@@ -2,9 +2,7 @@ from util.DBConnection import DBConnection
 
 from .crime_analysis_interface import IcrimeAnalysisService
 
-from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
-
-from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException, ReportNumberNotFoundException
+from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException, ReportNumberNotFoundException, EvidenceNumberNotFoundException, LawEnforcementAgencyNumberNotFoundException
 
 class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService): 
 
@@ -81,6 +79,8 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print("Oops error happened!!",e)
 
+
+
     def generate_incident_report(self, report):
         try:
             self.cursor.execute(
@@ -118,6 +118,8 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
 
         except Exception as e:
             print("Oops error happened: ",e)
+
+
 
     def create_case(self, cases):
         try:
@@ -171,8 +173,105 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print(e)
           
+
+
+    def generate_evidence(self, evidence):
+        try:
+            self.cursor.execute(
+                """
+                INSERT INTO Evidence(Description, LocationFound, IncidentID)
+                VALUES
+                (?, ?, ?)
+                """,
+                (evidence.description, evidence.location_found, evidence.incident_id)
+                )
+            self.connection.commit()
+            print("Evidence Generated")
+            self.cursor.execute("""
+                                SELECT TOP 1 *
+                                FROM Evidence 
+                                ORDER BY EvidenceID DESC;
+                                """
+                                )
+            evidences = self.cursor.fetchall()
+            return evidences
+        
+        except Exception as e:
+            print(e)
+
+    def get_evidence_by_evidence_id(self, evidenceID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Evidence
+                                where EvidenceID = ?
+                                """,
+                                (evidenceID))
+            evidence = self.cursor.fetchall()
+            if len(evidence) == 0:
+                raise EvidenceNumberNotFoundException
+            else:
+                return evidence
+            
+        except Exception as e:
+            print("Oops error occured: ",e)
+
+    def get_evidence_by_incident_id(self, incidentID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Evidence
+                                where IncidentID = ?
+                                """,
+                                (incidentID))
+            evidence = self.cursor.fetchall()
+            if len(evidence) == 0:
+                raise EvidenceNumberNotFoundException
+            else:
+                return evidence
+            
+        except Exception as e:
+            print(e)
+
+
+
+    def create_law_enforcement_agency(self, agency):
+        try:
+            self.cursor.execute("""
+                                INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, OfficerID)
+                                VALUES
+                                (?, ?, ?, ?)
+                                """,
+                                (agency.agency_name, agency.jurisdiction, agency.contact_information, agency.officerID))
+            self.connection.commit()
+            print("Agency genrated")
+            self.cursor.execute("""
+                                SELECT TOP 1 *
+                                FROM LawEnforcementAgency
+                                ORDER BY AgencyID DESC;
+                                """)
+            agencies = self.cursor.fetchall()
+            return agencies
+        
+        except Exception as e:
+            print(e)
+
+    def get_law_enforcement_agency_by_agency_id(self, agencyID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from LawEnforcementAgency
+                                where AgencyID = ? 
+                                """,
+                                (agencyID))
+            agencies = self.cursor.fetchall()
+            if len(agencies) == 0:
+                raise LawEnforcementAgencyNumberNotFoundException
+            else:
+                return agencies
+            
+        except Exception as e:
+            print("Oops error occured: ",e)
+
+            
     
-
-    
-
-
