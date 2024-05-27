@@ -12,16 +12,18 @@ class MainModule:
     def incident_menu(self):
         
         while True:
-            print("\nChoose your preference from the below options!!")
+            print("\nChoose functionality for Incidents!!")
             print("""1. Create incident
 2. Update incident status
 3. Get incidents in date range
 4. Search incidents by incident type
 5. Search incident by Incident ID                                 
-6. Back to main menu
+6. Print all incidents
+7. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
+
             # Create incident
             if choice == 1:
                 print("""
@@ -45,7 +47,7 @@ Incident type:
                         break
                 print(incident_type)
                 
-                date = input("Enter a date in the format YYYY-MM-DD: ")
+                date = input("Enter date in the format YYYY-MM-DD: ")
                 incident_date = datetime.strptime(date, "%Y-%m-%d")
                 location_longitude = float(input("Enter longitude value of location: "))
                 location_latitude = float(input("Enter latitude value of location: "))
@@ -76,9 +78,9 @@ Status type:
                 new_incident = Incidents(incident_type, incident_date, location_longitude, location_latitude, description, status, victim_id, suspect_id)
                 created = self.crime_service.create_incident(new_incident)
                 if created:
-                    print("Incident Created")
+                    print("Incident Created✅")
                 else:
-                    print("Could not create Incident")
+                    print("Could not create Incident❌")
 
             # Update Incident Status
             elif choice == 2:
@@ -104,9 +106,9 @@ Status type:
                         break
                 updated = self.crime_service.update_incident_status(incident_id, status)
                 if updated:
-                    print("Incident Status Updated successfully")
+                    print("Incident Status Updated successfully✅")
                 else:
-                    print("Could not update Status")
+                    print("Could not update Status❌")
 
             # Get incidents in date range
             elif choice == 3:
@@ -119,7 +121,6 @@ Status type:
                 head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
                 
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
-
 
             # Search Incidents by incident type
             elif choice == 4:
@@ -147,6 +148,7 @@ Incident type:
                 head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
+            # Search Incident by Incident ID
             elif choice == 5:
                 incidentID = int(input("Enter incident ID: "))
                 incidents = self.crime_service.get_incident_by_id(incidentID)
@@ -155,23 +157,29 @@ Incident type:
 
             # Back to main menu
             elif choice == 6:
-                break
+                incidents = self.crime_service.get_all_incidents()
+                head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
+                print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
+            elif choice == 7:
+                break
             else:
-                print("Please enter correct choice from menu!")
+                print("⚠️Please enter correct choice from menu!")
 
     def report_menu(self):
 
         
         while True:
-            print("\nChoose your preference from the below options!!")
+            print("\nChoose functionality for Reports!!")
             print("""
 1. Generate incident report
-2. Display incident report
-3. Exit
+2. Display incident report by Report ID
+3. Display all reports
+4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
+
             # Generate Incident Report
             if choice == 1:
                 incident_id = int(input("Enter incident id: "))
@@ -185,7 +193,9 @@ Incident type:
                 head = ["Report ID", "Incident ID", "Reporting Officer ID", "Report Date", "Details", "Status"]
 
                 print(tabulate(report, headers = head, tablefmt = "grid"))
+                print("Report Generated Successfully✅")
 
+            # Display Incident Report
             elif choice == 2:
                 report_id = int(input("Enter report ID: "))
                 reports = self.crime_service.get_report(report_id)
@@ -195,16 +205,22 @@ Incident type:
                 print(tabulate(reports, headers = head, tablefmt = "grid"))
 
             elif choice == 3:
+                reports = self.crime_service.get_all_reports()
+                head = ["Report ID", "Incident ID", "Reporting Officer ID", "Report Date", "Details", "Status"]
+                print(tabulate(reports, headers = head, tablefmt = "grid"))
+
+            # Back to main menu
+            elif choice == 4:
                 break
 
             else:
-                print("Please enter correct choice from menu!")
+                print("⚠️Please enter correct choice from menu!")
 
     def case_menu(self):
 
 
         while True:
-            print("\nChoose your preference from the below options!!")
+            print("\nChoose functionality for Cases!!")
             print("""1. Create case
 2. Get case details
 3. Update case details
@@ -213,6 +229,7 @@ Incident type:
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
+
             # Create case
             if choice == 1:
                 description = input("Enter case description: ")
@@ -221,9 +238,9 @@ Incident type:
                 new_case = Cases(description, incident_id)
                 created = self.crime_service.create_case(new_case)
                 if created:
-                    print("New Case Created")
+                    print("New Case Created✅")
                 else:
-                    print("Couldn't create case")
+                    print("Couldn't create case❌")
 
             # Get case details
             elif choice == 2:
@@ -240,9 +257,9 @@ Incident type:
                 description = input("Enter description of case: ")
                 updated = self.crime_service.update_case_details(case_id, description)
                 if updated:
-                    print("Case details updated")
+                    print("Case details updated✅")
                 else:
-                    print("Could not update case details")
+                    print("Could not update case details❌")
 
             # Get a list of all cases
             elif choice == 4:
@@ -252,23 +269,26 @@ Incident type:
 
                 print(tabulate(cases, headers= head, tablefmt="grid"))
 
+            # Back to main menu
             elif choice == 5:
                 break
 
             else:
-                print("Please enter correct choice from menu!")
+                print("⚠️Please enter correct choice from menu!")
 
     def evidence_menu(self):
         while True:
-            print("\nChoose your preference from the below options!!")
+            print("\nChoose functionality for Evidence!!")
             print("""
-1. Generate evidence
+1. Add new evidence
 2. Display evidence details by evidence ID
 3. Display evidence details by incident ID
 4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
+
+            # Add new evidence
             if choice == 1:
                 description = input("Enter description of evidence: ")
                 location = input("Enter location of evidence: ")
@@ -278,67 +298,180 @@ Incident type:
                 
                 head = ["Evidence ID", "Description", "Location Found", "Incident ID"]
                 print(tabulate(evidence, headers=head, tablefmt = "grid"))
+                print("Evidence added Successfully✅")
 
+            # Display evidence details by evidence ID
             elif choice == 2:
                 evidenceID = int(input("Enter evidence ID: "))
                 evidences = self.crime_service.get_evidence_by_evidence_id(evidenceID)
                 head = ["Evidence ID", "Description", "Location Found", "Incident ID"]
                 print(tabulate(evidences, headers=head, tablefmt = "grid"))
 
+            # Display evidence details by incident ID
             elif choice == 3:
                 incidentID = int(input("Enter incident ID: "))
                 evidences = self.crime_service.get_evidence_by_incident_id(incidentID)
                 head = ["Evidence ID", "Description", "Location Found", "Incident ID"]
                 print(tabulate(evidences, headers=head, tablefmt = "grid"))
 
+            # Back to main menu
             elif choice == 4:
                 break
 
             else:
-                print("Please enter correct choice from menu!")
+                print("⚠️Please enter correct choice from menu!")
 
     def law_enforcement_agency_menu(self):
         while True:
-            print("\nChoose your preference from the below options!!")
+            print("\nChoose functionality for Law Enforcement Agency!!")
             print("""
-1. Generate Agency
+1. Add new Agency
 2. Display agency details by Agency ID
 3. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
+
+            # Add new agency
             if choice == 1:
                 agency_name = input("Enter agency name: ")
-                jurisdiction = input("Enter jurisdiction of agency: ")
+                jurisdiction = input("Enter jurisdiction: ")
                 contact_info = input("Enter contact information: ")
                 officerID = int(input("Enter Officer ID: "))
                 new_agency = LawEnforcementAgency(agency_name, jurisdiction, contact_info, officerID)
                 agency = self.crime_service.create_law_enforcement_agency(new_agency)
                 head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
+                print("New agency added successfully✅")
 
+            # Display agency details by Agency ID
             elif choice == 2:
                 agencyID = int(input("Enter agency ID: "))
                 agency = self.crime_service.get_law_enforcement_agency_by_agency_id(agencyID)
                 head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
 
+            # Back to main menu
             elif choice == 3:
                 break
 
             else:
-                print("Please enter correct choice from menu!")
+                print("⚠️Please enter correct choice from menu!")
 
     def officer_menu(self):
-        pass
+        while True:
+            print("\nChoose functionality for Officers!!")
+            print("""
+1. Add new Officer
+2. Display officer details by Officer ID
+3. Back to main menu
+""")
+            choice = int(input("Please choose from above options: "))
+            print("_"*100+"\n")
+
+            # Add new officer
+            if choice == 1:
+                firstname = input("Enter first name: ")
+                lastname = input("Enter lastname: ")
+                badge_number = int(input("Enter badge number: "))
+                rank = input("Enter rank of officer: ")
+                contact_info = input("Enter contact information: ")
+                agency_id = int(input("Enter agency ID of agency of officer: "))
+                new_officer = Officers(firstname, lastname, badge_number, rank, contact_info, agency_id)
+                officer = self.crime_service.create_officer(new_officer)
+                head = ["Officer ID", "First Name", "Last Name", "Badge Number", "Rank", "Contact Information", "Agency ID"]
+                print(tabulate(officer, headers=head, tablefmt="grid"))
+                print("New officer added successfully✅")
+
+            # Display officer details by Officer ID
+            elif choice == 2:
+                officerID = int(input("Enter Officer ID: "))
+                officer = self.crime_service.get_officer_by_officer_id(officerID)
+                head = ["Officer ID", "First Name", "Last Name", "Badge Number", "Rank", "Contact Information", "Agency ID"]
+                print(tabulate(officer, headers=head, tablefmt="grid"))
+
+            # Back to main menu
+            elif choice == 3:
+                break
+
+            else:
+                print("⚠️Please enter correct choice from menu!")
 
     def suspect_menu(self):
-        pass
+        while True:
+            print("\nChoose functionality for Suspects!!")
+            print("""
+1. Add new Suspect
+2. Display suspect details by Suspect ID
+3. Back to main menu
+""")
+            choice = int(input("Please choose from above options: "))
+            print("_"*100+"\n")
+
+            # Add new suspect
+            if choice == 1:
+                firstname = input("Enter first name: ")
+                lastname = input("Enter lastname: ")
+                date = input("Enter date of birth in the format YYYY-MM-DD: ")
+                dob = datetime.strptime(date, "%Y-%m-%d")
+                gender = input("Enter gender: ")
+                contact_info = input("Enter contact information: ")
+                new_suspect = Suspects(firstname, lastname, dob, gender, contact_info)
+                suspect = self.crime_service.create_suspect(new_suspect)
+                head = ["Suspect ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(suspect, headers=head, tablefmt="grid"))
+                print("New suspect added successfully✅")
+
+            elif choice == 2:
+                suspectID = int(input("Enter suspect ID: "))
+                suspect = self.crime_service.get_suspect_by_id(suspectID)
+                head = ["Suspect ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(suspect, headers=head, tablefmt="grid"))
+
+            elif choice == 3:
+                break
+
+            else:
+                print("⚠️Please enter correct choice from menu!")
 
     def victim_menu(self):
-        pass 
+        while True:
+            print("\nChoose functionality for Victims!!")
+            print("""
+1. Add new Victim
+2. Display Victim details by Victim ID
+3. Back to main menu
+""")
+            choice = int(input("Please choose from above options: "))
+            print("_"*100+"\n")
 
-    
+            # Add new victim
+            if choice == 1:
+                firstname = input("Enter first name: ")
+                lastname = input("Enter lastname: ")
+                date = input("Enter date of birth in the format YYYY-MM-DD: ")
+                dob = datetime.strptime(date, "%Y-%m-%d")
+                gender = input("Enter gender: ")
+                contact_info = input("Enter contact information: ")
+                new_victim = Victims(firstname, lastname, dob, gender, contact_info)
+                victim = self.crime_service.create_victim(new_victim)
+                head = ["Victim ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(victim, headers=head, tablefmt="grid"))
+                print("New victim added successfully✅")
+
+            elif choice == 2:
+                victimID = int(input("Enter victim ID: "))
+                victim = self.crime_service.get_victim_by_id(victimID)
+                head = ["Victim ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(victim, headers=head, tablefmt="grid"))
+
+            elif choice == 3:
+                break
+
+            else:
+                print("⚠️Please enter correct choice from menu!")
+
+
 
 def main():
     main_menu = MainModule()
@@ -398,8 +531,6 @@ def main():
 
         else:
             print("Please enter correct choice from menu!")
-
-        
 
 if __name__ == "__main__":
     print("_"*100+"\n")

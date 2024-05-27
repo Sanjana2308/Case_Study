@@ -2,10 +2,12 @@ from util.DBConnection import DBConnection
 
 from .crime_analysis_interface import IcrimeAnalysisService
 
-from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException, ReportNumberNotFoundException, EvidenceNumberNotFoundException, LawEnforcementAgencyNumberNotFoundException
+from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException, ReportNumberNotFoundException, EvidenceNumberNotFoundException, LawEnforcementAgencyNumberNotFoundException, OfficerNumberNotFoundException, SuspectNumberNotFoundException, VictimNumberNotFoundException
 
 class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService): 
 
+
+    # Incident Management
     def create_incident(self, incidents):
         
         try:
@@ -77,10 +79,21 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 return incidents
         
         except Exception as e:
-            print("Oops error happened!!",e)
+            print("⚠️Oops error happened!!",e)
 
+    def get_all_incidents(self):
+        try:
+            self.cursor.execute("""
+                                select *
+                                from Incidents
+                                """)
+            incidents = self.cursor.fetchall()
+            return incidents
 
+        except Exception as e:
+            print(e)
 
+    # Report Management
     def generate_incident_report(self, report):
         try:
             self.cursor.execute(
@@ -90,7 +103,8 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 """,
                 (report.incident_id, report.reporting_officer, report.report_date, report.report_details, report.status)
                 )
-            print("Report Generated")
+            self.connection.commit()
+            print("Report Generated✅")
             self.cursor.execute("""
                                 SELECT TOP 1 * FROM Reports ORDER BY ReportID DESC;
                                 """
@@ -111,16 +125,26 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 (reportID))
             reports = self.cursor.fetchall()
 
-            if len(reports == 0):
+            if len(reports) == 0:
                 raise ReportNumberNotFoundException
             else:
                 return reports
 
         except Exception as e:
-            print("Oops error happened: ",e)
+            print("⚠️Oops error happened: ",e)
 
+    def get_all_reports(self):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Reports
+                                """)
+            reports = self.cursor.fetchall()
+            return reports
+        except Exception as e:
+            print(e)
 
-
+    # Case Management
     def create_case(self, cases):
         try:
             self.cursor.execute("""
@@ -148,7 +172,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             else:
                 return cases
         except Exception as e:
-            print("Oops error happened: ",e)
+            print("⚠️Oops error happened: ",e)
     
     def update_case_details(self, caseId, description):
         try:
@@ -174,7 +198,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             print(e)
           
 
-
+    # Evidence Management
     def generate_evidence(self, evidence):
         try:
             self.cursor.execute(
@@ -186,7 +210,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 (evidence.description, evidence.location_found, evidence.incident_id)
                 )
             self.connection.commit()
-            print("Evidence Generated")
+            print("Evidence Generated✅")
             self.cursor.execute("""
                                 SELECT TOP 1 *
                                 FROM Evidence 
@@ -214,7 +238,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 return evidence
             
         except Exception as e:
-            print("Oops error occured: ",e)
+            print("⚠️Oops error occured: ",e)
 
     def get_evidence_by_incident_id(self, incidentID):
         try:
@@ -234,7 +258,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             print(e)
 
 
-
+    # Law Enforcement Agency Management
     def create_law_enforcement_agency(self, agency):
         try:
             self.cursor.execute("""
@@ -244,7 +268,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 """,
                                 (agency.agency_name, agency.jurisdiction, agency.contact_information, agency.officerID))
             self.connection.commit()
-            print("Agency genrated")
+            print("Agency genrated✅")
             self.cursor.execute("""
                                 SELECT TOP 1 *
                                 FROM LawEnforcementAgency
@@ -271,7 +295,121 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 return agencies
             
         except Exception as e:
-            print("Oops error occured: ",e)
+            print("⚠️Oops error occured: ",e)
 
+    # Officer Management
+    def create_officer(self, officer):
+        try:
+            self.cursor.execute("""
+                                INSERT INTO Officers (FirstName, LastName, BadgeNumber, Rank, ContactInformation, AgencyID)
+                                VALUES
+                                (?, ?, ?, ?, ?, ?)
+                                """,
+                                (officer.firstname, officer.lastname, officer.badge_number, officer.rank, officer.contact_information, officer.agency_id))
+            self.connection.commit()
+            self.cursor.execute("""
+                                SELECT TOP 1 *
+                                FROM Officers
+                                ORDER BY OfficerID DESC;
+                                """)
+            officers = self.cursor.fetchall()
+            return officers
+        
+        except Exception as e:
+            print(e)
             
+    def get_officer_by_officer_id(self, officerID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Officers
+                                where OfficerID = ? 
+                                """,
+                                (officerID))
+            officer = self.cursor.fetchall()
+            if len(officer) == 0:
+                raise OfficerNumberNotFoundException
+            else:
+                return officer
+            
+        except Exception as e:
+            print("⚠️Oops error occured: ",e)
     
+
+
+    # Suspect Managemnent
+    def create_suspect(self, suspect):
+        try:
+            self.cursor.execute("""
+                                INSERT INTO Suspects (FirstName, LastName, DateOfBirth, Gender, ContactInformation)
+                                VALUES 
+                                (?, ?, ?, ?, ?)
+                                """,
+                                (suspect.firstname, suspect.lastname, suspect.date_of_birth, suspect.gender, suspect.contact_information))
+            self.connection.commit()
+            self.cursor.execute("""
+                                SELECT TOP 1 *
+                                FROM Suspects
+                                ORDER BY SuspectID DESC;
+                                """)
+            suspects = self.cursor.fetchall()
+            return suspects
+        
+        except Exception as e:
+            print(e)
+
+    def get_suspect_by_id(self, suspectID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Suspects
+                                where SuspectID = ? 
+                                """,
+                                (suspectID))
+            suspect = self.cursor.fetchall()
+            if len(suspect) == 0:
+                raise SuspectNumberNotFoundException
+            else:
+                return suspect
+            
+        except Exception as e:
+            print("⚠️Oops error occured: ",e)
+
+
+    # Victim Managemnent
+    def create_victim(self, victim):
+        try:
+            self.cursor.execute("""
+                                INSERT INTO Victims (FirstName, LastName, DateOfBirth, Gender, ContactInformation)
+                                VALUES 
+                                (?, ?, ?, ?, ?)
+                                """,
+                                (victim.firstname, victim.lastname, victim.date_of_birth, victim.gender, victim.contact_information))
+            self.connection.commit()
+            self.cursor.execute("""
+                                SELECT TOP 1 *
+                                FROM Victims
+                                ORDER BY VictimID DESC;
+                                """)
+            victims = self.cursor.fetchall()
+            return victims
+        
+        except Exception as e:
+            print(e)
+
+    def get_victim_by_id(self, victimID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Victims
+                                where VictimID = ? 
+                                """,
+                                (victimID))
+            victim = self.cursor.fetchall()
+            if len(victim) == 0:
+                raise VictimNumberNotFoundException
+            else:
+                return victim
+            
+        except Exception as e:
+            print("⚠️Oops error occured: ",e)
