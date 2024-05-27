@@ -4,4 +4,4 @@ class IncidentNumberNotFoundException(Exception):
 
 class CaseNumberNotFoundException(Exception):
     def __init__(self, CaseID):
-        super().__init__(f"Case with ID {CaseID} is not Found")
+        super().__init__(f"Case with {CaseID} is not found")

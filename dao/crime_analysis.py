@@ -4,7 +4,7 @@ from .crime_analysis_interface import IcrimeAnalysisService
 
 from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
 
-from myexception.exception import IncidentNumberNotFoundException
+from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException
 
 class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService): 
 
@@ -45,8 +45,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 (start_date, end_date))
             
             incidents = self.cursor.fetchall()
-            for incident in incidents:
-                print(incident)
+            return incidents
 
         except Exception as e:
             print(e)
@@ -64,7 +63,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             if len(incidents) == 0:
                 raise IncidentNumberNotFoundException
             else:
-                print(incidents)
+                return incidents
         except Exception as e:
             print("Oops error happened: ", e)
 
@@ -83,8 +82,7 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 """
                                 )
             reports = self.cursor.fetchall()
-            for report_ in reports:
-                print(report_)
+            return reports
 
         except Exception as e:
             print(e)
@@ -111,10 +109,12 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 (caseId)
                                 )
             cases = self.cursor.fetchall()
-            for case in cases:
-                print(case)
+            if len(cases) == 0:
+                raise CaseNumberNotFoundException
+            else:
+                return cases
         except Exception as e:
-            print(e)
+            print("Oops error happened: ",e)
     
     def update_case_details(self, caseId, description):
         try:
@@ -135,8 +135,23 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         try:
             self.cursor.execute("select * from Cases")
             cases = self.cursor.fetchall()
-            for case in cases:
-                print(case)
+            return cases
+        
         except Exception as e:
             print(e)
           
+    def get_report(self, reportID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Reports 
+                                where ReportID = ?
+                                """,
+                                (reportID))
+            reports = self.cursor.fetchall()
+            return reports
+
+        except Exception as e:
+            print(e)
+
+

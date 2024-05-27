@@ -23,8 +23,8 @@ CREATE TABLE Incidents(
 	IncidentID INT PRIMARY KEY IDENTITY(1, 1),
 	IncidentType VARCHAR(255) NOT NULL,
 	IncidentDate DATE NOT NULL,
-	Location_Longitude DECIMAL(10, 8) NOT NULL,
-	Location_Latitude DECIMAL(10, 8) NOT NULL,
+	Location_Longitude DECIMAL(10, 7) NOT NULL,
+	Location_Latitude DECIMAL(10, 7) NOT NULL,
 	Description VARCHAR(200),
 	Status VARCHAR(50) NOT NULL,
 	VictimID INT,
@@ -65,7 +65,7 @@ CREATE TABLE Reports(
 	IncidentID INT,
 	ReportingOfficer INT,
 	ReportDate DATE NOT NULL,
-	ReportDetails VARCHAR(500),
+	ReportDetails VARCHAR(255),
 	Status VARCHAR(20) NOT NULL,
 	FOREIGN KEY (IncidentID) References Incidents (IncidentID),
 	FOREIGN KEY (ReportingOfficer) References Officers (OfficerID)
@@ -73,7 +73,7 @@ CREATE TABLE Reports(
 
 CREATE TABLE Cases(
 	CaseID INT PRIMARY KEY IDENTITY(1, 1),
-	CaseDescription VARCHAR(500),
+	CaseDescription VARCHAR(255),
 	IncidentID INT,
 	FOREIGN KEY (IncidentId) References Incidents(IncidentId)
 );

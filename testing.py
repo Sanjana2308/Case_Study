@@ -1,8 +1,13 @@
 import unittest
+
 from unittest.mock import MagicMock, patch
+
 from datetime import datetime
+
 from util.DBConnection import DBConnection
+
 from dao.crime_analysis import CrimeAnalysisServiceImpl
+
 from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException
 
 class TestCrimeAnalysisServiceImpl(unittest.TestCase):
