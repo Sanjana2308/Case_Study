@@ -257,6 +257,17 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print(e)
 
+    def get_all_evidences(self):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Evidence
+                                """)
+            evidence = self.cursor.fetchall()
+            return evidence
+        
+        except Exception as e:
+            print(e)
 
     # Law Enforcement Agency Management
     def create_law_enforcement_agency(self, agency):
@@ -297,6 +308,18 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print("⚠️Oops error occured: ",e)
 
+    def get_all_law_enforcement_agencies(self):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from LawEnforcementAgency
+                                """)
+            agency = self.cursor.fetchall()
+            return agency
+        
+        except Exception as e:
+            print(e)
+
     # Officer Management
     def create_officer(self, officer):
         try:
@@ -335,6 +358,17 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print("⚠️Oops error occured: ",e)
     
+    def get_all_officers(self):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Officers 
+                                """)
+            officers = self.cursor.fetchall()
+            return officers
+        
+        except Exception as e:
+            print(e)
 
 
     # Suspect Managemnent
@@ -375,6 +409,17 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print("⚠️Oops error occured: ",e)
 
+    def get_all_suspects(self):
+        try:
+            self.cursor.execute("""
+                                select *
+                                from Suspects
+                                """)
+            suspects = self.cursor.fetchall()
+            return suspects
+        
+        except Exception as e:
+            print(e)
 
     # Victim Managemnent
     def create_victim(self, victim):
@@ -413,3 +458,14 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
             
         except Exception as e:
             print("⚠️Oops error occured: ",e)
+
+    def get_all_victims(self):
+        try:
+            self.cursor.execute("""
+                                select *
+                                from Victims
+                                """)
+            victims = self.cursor.fetchall()
+            return victims
+        except Exception as e:
+            print(e)

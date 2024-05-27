@@ -155,12 +155,13 @@ Incident type:
                 head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
-            # Back to main menu
+            # Get a list of all Incidents
             elif choice == 6:
                 incidents = self.crime_service.get_all_incidents()
                 head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
+            # Back to main menu
             elif choice == 7:
                 break
             else:
@@ -204,6 +205,7 @@ Incident type:
 
                 print(tabulate(reports, headers = head, tablefmt = "grid"))
 
+            # Get a list of all reports
             elif choice == 3:
                 reports = self.crime_service.get_all_reports()
                 head = ["Report ID", "Incident ID", "Reporting Officer ID", "Report Date", "Details", "Status"]
@@ -283,7 +285,8 @@ Incident type:
 1. Add new evidence
 2. Display evidence details by evidence ID
 3. Display evidence details by incident ID
-4. Back to main menu
+4. Get a list of all evidences
+5. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
@@ -314,8 +317,15 @@ Incident type:
                 head = ["Evidence ID", "Description", "Location Found", "Incident ID"]
                 print(tabulate(evidences, headers=head, tablefmt = "grid"))
 
-            # Back to main menu
+            # Display a list of all evidences
             elif choice == 4:
+                evidences = self.crime_service.get_all_evidences()
+                head = ["Evidence ID", "Description", "Location Found", "Incident ID"]
+                print(tabulate(evidences, headers=head, tablefmt = "grid"))
+
+
+            # Back to main menu
+            elif choice == 5:
                 break
 
             else:
@@ -327,7 +337,8 @@ Incident type:
             print("""
 1. Add new Agency
 2. Display agency details by Agency ID
-3. Back to main menu
+3. Display a list of all agencies 
+4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
@@ -351,8 +362,14 @@ Incident type:
                 head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
 
-            # Back to main menu
+            # Display a list of all agencies
             elif choice == 3:
+                agency = self.crime_service.get_all_law_enforcement_agencies()
+                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
+                print(tabulate(agency, headers= head, tablefmt="grid"))
+
+            # Back to main menu
+            elif choice == 4:
                 break
 
             else:
@@ -364,7 +381,8 @@ Incident type:
             print("""
 1. Add new Officer
 2. Display officer details by Officer ID
-3. Back to main menu
+3. Display a list of all Officers
+4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
@@ -390,8 +408,15 @@ Incident type:
                 head = ["Officer ID", "First Name", "Last Name", "Badge Number", "Rank", "Contact Information", "Agency ID"]
                 print(tabulate(officer, headers=head, tablefmt="grid"))
 
-            # Back to main menu
+            # Display a list of all officers
             elif choice == 3:
+                officers = self.crime_service.get_all_officers()
+                head = ["Officer ID", "First Name", "Last Name", "Badge Number", "Rank", "Contact Information", "Agency ID"]
+                print(tabulate(officers, headers=head, tablefmt="grid"))
+
+
+            # Back to main menu
+            elif choice == 4:
                 break
 
             else:
@@ -403,7 +428,8 @@ Incident type:
             print("""
 1. Add new Suspect
 2. Display suspect details by Suspect ID
-3. Back to main menu
+3. Display a list of all Suspects
+4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
@@ -422,13 +448,21 @@ Incident type:
                 print(tabulate(suspect, headers=head, tablefmt="grid"))
                 print("New suspect added successfully✅")
 
+            # Display suspect details by Suspect ID
             elif choice == 2:
                 suspectID = int(input("Enter suspect ID: "))
                 suspect = self.crime_service.get_suspect_by_id(suspectID)
                 head = ["Suspect ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
                 print(tabulate(suspect, headers=head, tablefmt="grid"))
 
+            # Display a list of all Suspects
             elif choice == 3:
+                suspect = self.crime_service.get_all_suspects()
+                head = ["Suspect ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(suspect, headers=head, tablefmt="grid"))
+
+            # Back to main menu
+            elif choice == 4:
                 break
 
             else:
@@ -440,7 +474,8 @@ Incident type:
             print("""
 1. Add new Victim
 2. Display Victim details by Victim ID
-3. Back to main menu
+3. Display a list of all Victims
+4. Back to main menu
 """)
             choice = int(input("Please choose from above options: "))
             print("_"*100+"\n")
@@ -459,13 +494,21 @@ Incident type:
                 print(tabulate(victim, headers=head, tablefmt="grid"))
                 print("New victim added successfully✅")
 
+            # Display Victim details by Victim ID
             elif choice == 2:
                 victimID = int(input("Enter victim ID: "))
                 victim = self.crime_service.get_victim_by_id(victimID)
                 head = ["Victim ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
                 print(tabulate(victim, headers=head, tablefmt="grid"))
 
+            # Display a list of all Victims
             elif choice == 3:
+                victim = self.crime_service.get_all_victims()
+                head = ["Victim ID", "First Name", "Last Name", "Date of Birth", "Gender", "Contact Information"]
+                print(tabulate(victim, headers=head, tablefmt="grid"))
+
+            # Back to main menu
+            elif choice == 4:
                 break
 
             else:
