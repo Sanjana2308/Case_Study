@@ -4,7 +4,7 @@ from .crime_analysis_interface import IcrimeAnalysisService
 
 from entity import Evidence, Incidents, LawEnforcementAgency, Officers, Reports, Suspects, Victims
 
-from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException
+from myexception.exception import IncidentNumberNotFoundException, CaseNumberNotFoundException, ReportNumberNotFoundException
 
 class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService): 
 
@@ -59,13 +59,27 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                 (incident_type)
                 )
             incidents = self.cursor.fetchall()
+            return incidents
+        
+        except Exception as e:
+            print(e)
 
+    def get_incident_by_id(self, incidentID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Incidents 
+                                where IncidentID = ?
+                                """,
+                                (incidentID))
+            incidents = self.cursor.fetchall()
             if len(incidents) == 0:
                 raise IncidentNumberNotFoundException
             else:
                 return incidents
+        
         except Exception as e:
-            print("Oops error happened: ", e)
+            print("Oops error happened!!",e)
 
     def generate_incident_report(self, report):
         try:
@@ -86,6 +100,24 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
 
         except Exception as e:
             print(e)
+
+    def get_report(self, reportID):
+        try:
+            self.cursor.execute("""
+                                select * 
+                                from Reports 
+                                where ReportID = ?
+                                """,
+                                (reportID))
+            reports = self.cursor.fetchall()
+
+            if len(reports == 0):
+                raise ReportNumberNotFoundException
+            else:
+                return reports
+
+        except Exception as e:
+            print("Oops error happened: ",e)
 
     def create_case(self, cases):
         try:
@@ -130,7 +162,6 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print(e)  
 
-    
     def get_all_cases(self):
         try:
             self.cursor.execute("select * from Cases")
@@ -140,18 +171,8 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
         except Exception as e:
             print(e)
           
-    def get_report(self, reportID):
-        try:
-            self.cursor.execute("""
-                                select * 
-                                from Reports 
-                                where ReportID = ?
-                                """,
-                                (reportID))
-            reports = self.cursor.fetchall()
-            return reports
+    
 
-        except Exception as e:
-            print(e)
+    
 
 

@@ -121,7 +121,7 @@ Status type:
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
 
-            # Search Incidents
+            # Search Incidents by incident type
             elif choice == 4:
                 print("""
 Incident type: 
@@ -144,9 +144,13 @@ Incident type:
                         break
 
                 incidents = self.crime_service.search_incidents(incident_type)
-
                 head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
-                
+                print(tabulate(incidents, headers = head, tablefmt = "grid"))
+
+            elif choice == 5:
+                incidentID = int(input("Enter incident ID: "))
+                incidents = self.crime_service.get_incident_by_id(incidentID)
+                head = ["Incident ID", "Incident Type", "Incident Date", "Longitude", "Latitude", "Description", "Status", "Victim ID", "Suspect ID"]
                 print(tabulate(incidents, headers = head, tablefmt = "grid"))
 
             # Back to main menu
@@ -243,7 +247,7 @@ Incident type:
             # Get a list of all cases
             elif choice == 4:
                 cases = self.crime_service.get_all_cases()
-                
+
                 head = ["Case ID", "Description", "Incident ID"]
 
                 print(tabulate(cases, headers= head, tablefmt="grid"))
@@ -253,6 +257,21 @@ Incident type:
 
             else:
                 print("Please enter correct choice from menu!")
+
+    def evidence_menu(self):
+        pass
+
+    def law_enforcement_agency_menu(self):
+        pass
+
+    def officer_menu(self):
+        pass
+
+    def suspect_menu(self):
+        pass
+
+    def victim_menu(self):
+        pass 
 
     
 
@@ -266,7 +285,12 @@ def main():
         print("""1. Incident Management
 2. Report Management
 3. Case Management
-4. Exit
+4. Evidence Management
+5. Law Enforcement Agency Management
+6. Officer Management
+7. Suspect Management
+8. Victim Management
+9. Exit
 """)
         choice = int(input("Please choose from above options: "))
         print("_"*100+"\n")
@@ -284,6 +308,26 @@ def main():
             main_menu.case_menu()
 
         elif choice == 4:
+            
+            main_menu.evidence_menu()
+
+        elif choice == 5:
+            
+            main_menu.law_enforcement_agency_menu()
+
+        elif choice == 6:
+
+            main_menu.officer_menu()
+
+        elif choice == 7:
+
+            main_menu.suspect_menu()
+
+        elif choice == 8:
+
+            main_menu.victim_menu()
+
+        elif choice == 9:
             main_menu.crime_service.close()
             break
 
