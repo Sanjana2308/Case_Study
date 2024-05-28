@@ -21,21 +21,25 @@ class TestIncidentServiceModule(unittest.TestCase):
         new_incident = Incidents(incident_type, incident_date, location_longitude, location_latitude, description, status, victim_id, suspect_id)
         created_incident = self.crime_analysis_service.create_incident(new_incident)
         self.assertIsNotNone(created_incident)
-        print("-"*20+"test_create_incident passed"+"-"*20)
 
-    # def test_update_incident(self):
-    #     updated_status = "Open"
-    #     updated_incident = self.crime_analysis_service.update_incident_status(self.test_incident_id, updated_status)
+        print("-"*20+"test_create_incident passed"+"-"*20)
         
-    #     # Check after updating the movie
-    #     self.crime_analysis_service.cursor.execute(
-    #         """select * 
-    #         from Incidents 
-    #         where IncidentID = ?
-    #         """,(self.test_incident_id,)
-    #         )
-    #     incident = self.crime_analysis_service.cursor.fetchone()
-        
+
+    def test_update_incident(self):
+        updated_status = "Open"
+        incident_num = [x for x in self.test_incident_id]
+        updated_incident = self.crime_analysis_service.update_incident_status(incident_num[0], updated_status)
+
+        # Check after updating the incident
+        self.crime_analysis_service.cursor.execute(
+            """select * 
+            from Incidents 
+            where IncidentID = ?
+            """,(incident_num[0])
+            )
+        incident = self.crime_analysis_service.cursor.fetchone()
+        self.assertEqual(incident[6], "Open")
+        print("\n\n"+"-"*20+"test_update_incident passed"+"-"*20)
 
 
         
