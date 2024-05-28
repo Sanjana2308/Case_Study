@@ -78,7 +78,7 @@ Status type:
                 new_incident = Incidents(incident_type, incident_date, location_longitude, location_latitude, description, status, victim_id, suspect_id)
                 created = self.crime_service.create_incident(new_incident)
                 if created:
-                    print("Incident Created✅")
+                    print(f"✅Incident Created with ID: {created[0]}")
                 else:
                     print("Could not create Incident❌")
 
@@ -194,7 +194,7 @@ Incident type:
                 head = ["Report ID", "Incident ID", "Reporting Officer ID", "Report Date", "Details", "Status"]
 
                 print(tabulate(report, headers = head, tablefmt = "grid"))
-                print("Report Generated Successfully✅")
+                
 
             # Display Incident Report
             elif choice == 2:
@@ -240,9 +240,10 @@ Incident type:
                 new_case = Cases(description, incident_id)
                 created = self.crime_service.create_case(new_case)
                 if created:
-                    print("New Case Created✅")
+                    print(f"✅New Case Created with CaseID: {created[0]}")
                 else:
                     print("Couldn't create case❌")
+                
 
             # Get case details
             elif choice == 2:
@@ -348,10 +349,10 @@ Incident type:
                 agency_name = input("Enter agency name: ")
                 jurisdiction = input("Enter jurisdiction: ")
                 contact_info = input("Enter contact information: ")
-                officerID = int(input("Enter Officer ID: "))
-                new_agency = LawEnforcementAgency(agency_name, jurisdiction, contact_info, officerID)
+                incidentID = int(input("Enter Incident ID: "))
+                new_agency = LawEnforcementAgency(agency_name, jurisdiction, contact_info, incidentID)
                 agency = self.crime_service.create_law_enforcement_agency(new_agency)
-                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
+                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Incident ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
                 print("New agency added successfully✅")
 
@@ -359,13 +360,13 @@ Incident type:
             elif choice == 2:
                 agencyID = int(input("Enter agency ID: "))
                 agency = self.crime_service.get_law_enforcement_agency_by_agency_id(agencyID)
-                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
+                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Incident ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
 
             # Display a list of all agencies
             elif choice == 3:
                 agency = self.crime_service.get_all_law_enforcement_agencies()
-                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Officer ID"]
+                head = ["Agency ID", "Agency Name", "Jurisdiction", "Contact Information", "Incident ID"]
                 print(tabulate(agency, headers= head, tablefmt="grid"))
 
             # Back to main menu

@@ -38,8 +38,8 @@ CREATE TABLE LawEnforcementAgency(
 	AgencyName VARCHAR(255) NOT NULL,
 	Jurisdiction VARCHAR(255) NOT NULL,
 	ContactInformation VARCHAR(200),
-	OfficerID INT
-	FOREIGN KEY (OfficerID) References Officers(OfficerID) 
+	IncidentID INT UNIQUE
+	FOREIGN KEY (IncidentID) References Incidents(IncidentID) 
 );
 
 CREATE TABLE Officers(
@@ -63,7 +63,7 @@ CREATE TABLE Evidence(
 
 CREATE TABLE Reports(
 	ReportID INT PRIMARY KEY IDENTITY(1, 1),
-	IncidentID INT,
+	IncidentID INT UNIQUE,
 	ReportingOfficer INT,
 	ReportDate DATE NOT NULL,
 	ReportDetails VARCHAR(255),
@@ -75,6 +75,6 @@ CREATE TABLE Reports(
 CREATE TABLE Cases(
 	CaseID INT PRIMARY KEY IDENTITY(1, 1),
 	CaseDescription VARCHAR(255),
-	IncidentID INT,
+	IncidentID INT UNIQUE,
 	FOREIGN KEY (IncidentId) References Incidents(IncidentId)
 );

@@ -39,7 +39,7 @@ INSERT INTO Incidents (IncidentType, IncidentDate, Location_Latitude, Location_L
 ('Theft', '2024-06-12', 41.878100, -87.629800, 'Theft of a vehicle', 'Open', 10, 10);
 
 -- Dummy data for LawEnforcementAgency table
-INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, OfficerID)
+INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, IncidentID)
 VALUES
 ('City Police Department', 'Citywide', '123 Police Ave, Cityville, USA', 1),
 ('County Sheriff Office', 'Countywide', '456 Sheriff St, Countytown, USA', 2),

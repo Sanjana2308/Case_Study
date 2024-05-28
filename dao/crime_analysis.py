@@ -163,7 +163,14 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
                                 (cases.description, cases.incident_id)
                                 )
             self.connection.commit()
-            return True
+            self.cursor.execute("""
+                                select TOP 1 CaseID
+                                from Cases
+                                order by CaseID DESC
+                                """)
+            case_id = self.cursor.fetchone()
+            return case_id
+        
         except Exception as e:
             print(e)
 
@@ -281,11 +288,11 @@ class CrimeAnalysisServiceImpl(DBConnection, IcrimeAnalysisService):
     def create_law_enforcement_agency(self, agency):
         try:
             self.cursor.execute("""
-                                INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, OfficerID)
+                                INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation, incidentID)
                                 VALUES
                                 (?, ?, ?, ?)
                                 """,
-                                (agency.agency_name, agency.jurisdiction, agency.contact_information, agency.officerID))
+                                (agency.agency_name, agency.jurisdiction, agency.contact_information, agency.incidentID))
             self.connection.commit()
             print("Agency genrated✅")
             self.cursor.execute("""
