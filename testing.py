@@ -24,7 +24,6 @@ class TestIncidentServiceModule(unittest.TestCase):
 
         print("-"*20+"test_create_incident passed"+"-"*20)
         
-
     def test_update_incident(self):
         updated_status = "Open"
         incident_num = [x for x in self.test_incident_id]
@@ -39,10 +38,8 @@ class TestIncidentServiceModule(unittest.TestCase):
             )
         incident = self.crime_analysis_service.cursor.fetchone()
         self.assertEqual(incident[6], "Open")
-        print("\n\n"+"-"*20+"test_update_incident passed"+"-"*20)
-
-
         
+        print("\n\n"+"-"*20+"test_update_incident passed"+"-"*20)
 
 if __name__ == "__main__":
     unittest.main()
