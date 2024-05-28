@@ -12,7 +12,7 @@ class MainModule:
     def incident_menu(self):
         
         while True:
-            print("\nChoose functionality for Incidents!!")
+            print("\n👇 Choose functionality for Incidents")
             print("""1. Create incident
 2. Update incident status
 3. Get incidents in date range
@@ -21,7 +21,7 @@ class MainModule:
 6. Print all incidents
 7. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Create incident
@@ -165,20 +165,20 @@ Incident type:
             elif choice == 7:
                 break
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def report_menu(self):
 
         
         while True:
-            print("\nChoose functionality for Reports!!")
+            print("\n👇 Choose functionality for Reports")
             print("""
 1. Generate incident report
 2. Display incident report by Report ID
 3. Display all reports
 4. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Generate Incident Report
@@ -216,20 +216,20 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def case_menu(self):
 
 
         while True:
-            print("\nChoose functionality for Cases!!")
+            print("\n👇 Choose functionality for Cases")
             print("""1. Create case
 2. Get case details
 3. Update case details
 4. Get a list of all cases
 5. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Create case
@@ -277,11 +277,11 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def evidence_menu(self):
         while True:
-            print("\nChoose functionality for Evidence!!")
+            print("\n👇 Choose functionality for Evidence")
             print("""
 1. Add new evidence
 2. Display evidence details by evidence ID
@@ -289,7 +289,7 @@ Incident type:
 4. Get a list of all evidences
 5. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Add new evidence
@@ -330,18 +330,18 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def law_enforcement_agency_menu(self):
         while True:
-            print("\nChoose functionality for Law Enforcement Agency!!")
+            print("\n👇 Choose functionality for Law Enforcement Agency")
             print("""
 1. Add new Agency
 2. Display agency details by Agency ID
 3. Display a list of all agencies 
 4. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Add new agency
@@ -374,18 +374,18 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def officer_menu(self):
         while True:
-            print("\nChoose functionality for Officers!!")
+            print("\n👇 Choose functionality for Officers")
             print("""
 1. Add new Officer
 2. Display officer details by Officer ID
 3. Display a list of all Officers
 4. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Add new officer
@@ -421,18 +421,18 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def suspect_menu(self):
         while True:
-            print("\nChoose functionality for Suspects!!")
+            print("\n👇 Choose functionality for Suspects")
             print("""
 1. Add new Suspect
 2. Display suspect details by Suspect ID
 3. Display a list of all Suspects
 4. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Add new suspect
@@ -467,18 +467,18 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
     def victim_menu(self):
         while True:
-            print("\nChoose functionality for Victims!!")
+            print("\n👇 Choose functionality for Victims")
             print("""
 1. Add new Victim
 2. Display Victim details by Victim ID
 3. Display a list of all Victims
 4. Back to main menu
 """)
-            choice = int(input("Please choose from above options: "))
+            choice = int(input("Enter your choice: "))
             print("_"*100+"\n")
 
             # Add new victim
@@ -513,7 +513,7 @@ Incident type:
                 break
 
             else:
-                print("⚠️Please enter correct choice from menu!")
+                print("⚠️  Please enter correct choice from menu!")
 
 
 
@@ -522,7 +522,7 @@ def main():
 
     while True:
         print("_"*100+"\n")
-        print("Choose your preference from the below options!!")
+        print("👇 Choose your preference from the below options")
 
         print("""1. Incident Management
 2. Report Management
@@ -534,7 +534,7 @@ def main():
 8. Victim Management
 9. Exit
 """)
-        choice = int(input("Please choose from above options: "))
+        choice = int(input("Enter your choice: "))
         print("_"*100+"\n")
 
         if choice == 1:
@@ -571,12 +571,13 @@ def main():
 
         elif choice == 9:
             main_menu.crime_service.close()
+            print("-"*40+"👋"*10+"-"*40)
             break
 
         else:
-            print("Please enter correct choice from menu!")
+            print("⚠️  Please enter correct choice from menu!")
 
 if __name__ == "__main__":
     print("_"*100+"\n")
-    print("Welcome to Crime Analysis and Reporting System!")
+    print("😊 Welcome to Crime Analysis and Reporting System!😊")
     main()
